@@ -1,0 +1,12 @@
+.bgcAll {
+  background-color: #f0f2f5;
+}
+.bgcAll .bgcLeft {
+  background-color: #f0f2f5;
+}
+.bgcAll .orderRight {
+  height: 500px;
+}
+.bgcAll .orderRight .orderMsg div {
+  padding-bottom: 10px;
+}

@@ -1,0 +1,6 @@
+.searchContent :global .ant-form {
+  display: flex;
+}
+.searchContent :global .ant-pro-form-group-container {
+  margin-top: 25px;
+}
