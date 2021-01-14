@@ -173,41 +173,39 @@ const TableList = ({ order, dispatch }) => {
         toolBarRender={false}
         dataSource={data}
         columns={columns}
-        rowSelection={{
-          selections: [Table.SELECTION_ALL, Table.SELECTION_INVERT],
-        }}
-        tableAlertRender={({ selectedRowKeys, selectedRows }) => (
-          <Space size={24}>
-            <span>已选 {selectedRowKeys.length} 项</span>
-            <Space size={16}>
-              <a onClick={() => console.log(selectedRowKeys, '1')}>发货</a>
-              <a
-                onClick={() => {
-                  let count = 0;
-                  selectedRows.map((item) => {
-                    if (
-                      item.post_status === 'wc-cancelled' ||
-                      item.post_status === 'wc-completed'
-                    ) {
-                      count += 1;
-                    }
-                  });
-                  if (count > 0) {
-                    message.error('只能修改运行中的订单，请重新选择');
-                  } else {
-                    dispatch({
-                      type: 'order/updateOrderStatus',
-                      payload: { nums: selectedRowKeys },
-                    });
-                  }
-                }}
-              >
-                标记已完成
-              </a>
-              <a>标记进行中</a>
-            </Space>
-          </Space>
-        )}
+        rowSelection={false}
+        // tableAlertRender={({ selectedRowKeys, selectedRows }) => (
+        //   <Space size={24}>
+        //     <span>已选 {selectedRowKeys.length} 项</span>
+        //     <Space size={16}>
+        //       <a onClick={() => console.log(selectedRowKeys, '1')}>发货</a>
+        //       <a
+        //         onClick={() => {
+        //           let count = 0;
+        //           selectedRows.map((item) => {
+        //             if (
+        //               item.post_status === 'wc-cancelled' ||
+        //               item.post_status === 'wc-completed'
+        //             ) {
+        //               count += 1;
+        //             }
+        //           });
+        //           if (count > 0) {
+        //             message.error('只能修改运行中的订单，请重新选择');
+        //           } else {
+        //             dispatch({
+        //               type: 'order/updateOrderStatus',
+        //               payload: { nums: selectedRowKeys },
+        //             });
+        //           }
+        //         }}
+        //       >
+        //         标记已完成
+        //       </a>
+        //       <a>标记进行中</a>
+        //     </Space>
+        //   </Space>
+        // )}
       />)}
     </PageHeaderWrapper>
   );

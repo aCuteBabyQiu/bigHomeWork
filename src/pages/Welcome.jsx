@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProCard from '@ant-design/pro-card';
 import ProTable from '@ant-design/pro-table';
-import { TinyColumn, TinyLine, Progress, Column, TinyArea ,Line} from '@ant-design/charts';
+import { TinyColumn, TinyLine, Progress, Column, TinyArea ,Line,Liquid,Area} from '@ant-design/charts';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Statistic, DatePicker, Spin } from 'antd';
 import styles from './Welcome.less';
@@ -48,7 +48,35 @@ const index = ({ dispatch, orders, sales, visitors, hots, salesNow, visitorsNow,
   let data2 = []
   let dailyVisData = []
   let dailySaleData = []
-  
+  let randomColor = function(){
+    switch(Math.ceil(Math.random()*10)){
+      case 1:
+        return '#ff7979';
+      case 2:
+        return '#badc58';
+      case 3:
+        return '#f9ca24';
+      case 4:
+        return '#e056fd';
+      case 5:
+        return '#7ed6df';
+      case 6:
+        return '#95afc0';
+      case 7:
+        return '#ffbe76';
+      case 8:
+        return '#00d2d3';
+      case 9:
+        return '#2e86de';
+      case 10:
+        return '#5f27cd'; 
+      default:
+        return '#5f27cd';    
+    } 
+  }
+  let chartColor = '#badc58'
+  let tilColor = '#ffffff';
+
   const CountVis = () => {
     visitors.map(item => {
       visitCount = visitCount*1 + item.value*1
@@ -97,6 +125,7 @@ const index = ({ dispatch, orders, sales, visitors, hots, salesNow, visitorsNow,
     width: 220,
     autoFit: false,
     data: data1,
+    color:randomColor,
     tooltip: {
       customContent: function customContent(x, data) {
         var _data$, _data$$data;
@@ -119,32 +148,53 @@ const index = ({ dispatch, orders, sales, visitors, hots, salesNow, visitorsNow,
     autoFit: false,
     data: data2,
     smooth: true,
-    areaStyle: { fill: '#000' },
+    areaStyle: { fill: chartColor },
   };
 
   var config3 = {
-    height: 40,
-    width: 220,
+    percent: 0.76,
+    height:80,
+    padding:0,
     autoFit: false,
-    percent: 0.7,
-    color: ['#5B8FF9', '#E8EDF3'],
+    smooth: false,
+    color:randomColor,
+    statistic: {
+      title: {
+        formatter: function formatter() {
+          return '订单发货率';
+        },
+        style: {
+          fontSize: 12,
+          fill: tilColor
+        },
+      },
+      content: {
+        style: {
+          fontSize: 12,
+          fill: tilColor
+        }
+      }
+    },
   };
 
   var config4 = {
     data: orders,
     xField: 'datetime',
     yField: 'value',
-    label: {
-      position: 'middle',
-      style: {
-        fill: '#FFFFFF',
-        opacity: 0.6,
-        width: 300,
-      },
+    xAxis: {
+      type: 'timeCat',
+      tickCount: 5,
     },
+    smooth:false,
     meta: {
       datetime: { alias: '日期' },
       value: { alias: '销售额' },
+    },
+    areaStyle: { 
+      fill: '#1dd1a1',
+      fillOpacity: 0.5,
+      stroke: 'black', 
+      strokeOpacity: 0.7,
     },
   };
   var config5 = {
@@ -261,7 +311,8 @@ var config6 = {
               style={{height:50 ,marginBottom:20}}
             />
             <div style={{height:80 }}>
-              <Progress {...config3} style={{paddingTop:25}} />
+            {/* style={{paddingTop:25}} */}
+              <Liquid {...config3}  />
             </div>        
             <div style={{ borderTop: '1px solid #000' }}>
               <div style={{marginTop:10}}>发货完成率：&nbsp;&nbsp;76%</div>
@@ -275,7 +326,7 @@ var config6 = {
               colSpan={16}
               title={<span style={{ fontWeight: '700' }}>订单增长趋势</span>}
             >
-              <Column {...config4}  />
+              <Area {...config4}  />
             </ProCard>
             <ProCard colSpan={8} style={{position: 'relative'}}  title={<span style={{ fontWeight: '700' }}>商品销售数排行</span>}>
               <RangePicker 

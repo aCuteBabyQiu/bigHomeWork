@@ -27,7 +27,7 @@ const index = ({ user, dispatch, match }) => {
   const [checked, setIsChecked] = useState(false);
   return (
     <PageHeaderWrapper title="订单详情" breadcrumb={false}>
-      <ModalForm
+      {/* <ModalForm
         title="发货"
         trigger={
           <div style={{ position: 'relative' }}>
@@ -65,7 +65,7 @@ const index = ({ user, dispatch, match }) => {
           <ProFormText width="lg" name="express" placeholder="请输入物流单号" />
         </div>
         <ProFormCheckbox.Group name="checkbox" options={['发消息给客户']} />
-      </ModalForm>
+      </ModalForm> */}
       {loading?<div style={{textAlign:'center'}}>
          <Spin size="large"/>
        </div>:(<ProCard gutter={15} className={styles.bgcAll} bordered>
