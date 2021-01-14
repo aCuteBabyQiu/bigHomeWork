@@ -36,11 +36,11 @@ const menuDataRender = (menuList) =>
     };
     return Authorized.check(item.authority, localItem, null);
   });
+let nowTime = new Date()
 
 const defaultFooterDom = (
   <DefaultFooter
-    // copyright={`${new Date().getFullYear()} 204出品`}
-    copyright={'204出品'}
+    copyright={ (nowTime.getFullYear()) + '-' + (nowTime.getMonth()+1) + ' @阿秋出品' }
     links={[ ]}
   />
 );
